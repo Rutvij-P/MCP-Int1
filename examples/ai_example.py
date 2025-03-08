@@ -3,8 +3,8 @@
 Example of how to use the AI Suggestions functionality of the SVG Animation MCP.
 """
 
-from svg_animation_mcp import MCP
-from browser_integration import init_browser_environment
+from src.mcp.svg_animation_mcp import MCP
+from src.mcp.browser_integration import init_browser_environment
 import time
 
 # Try to import both AI suggestion modules

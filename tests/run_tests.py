@@ -54,7 +54,7 @@ def main():
     elif args.unit:
         # Run only unit tests (exclude browser and performance tests)
         pytest_cmd.append("-m not browser")
-        pytest_cmd.append("tests/test_mcp_core.py tests/test_svg.py tests/test_animation.py tests/test_utils.py tests/test_browser_integration.py")
+        pytest_cmd.append("tests/")  # Run all tests in the tests directory instead of specifying individual files
     elif args.performance:
         # Run only performance tests
         pytest_cmd.append("tests/test_performance.py")

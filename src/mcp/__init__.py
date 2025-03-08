@@ -1,8 +1,8 @@
 """
-SVG Animation MCP Package.
+MCP (Machine Communication Protocol) for SVG animations.
 
-This package provides a Machine Communication Protocol (MCP)
-for creating and animating SVG elements in a web browser.
+This package provides a Python interface for creating and manipulating SVG animations
+through a browser-based communication protocol.
 """
 
 from svg_animation_mcp import MCP, SVG, Shape, Rectangle, Circle, Path, Text

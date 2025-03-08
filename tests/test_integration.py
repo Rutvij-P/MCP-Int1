@@ -2,7 +2,7 @@
 Integration tests for the MCP, simulating full workflows.
 """
 import pytest
-from svg_animation_mcp import MCP
+from svg_animation_mcp import MCP, MCPError
 
 def test_complete_animation_workflow(mcp, mock_browser):
     """Test a complete workflow to create and animate SVG elements."""

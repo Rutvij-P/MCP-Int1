@@ -9,13 +9,13 @@ This demo showcases the advanced features of the SVG Animation MCP, including:
 """
 
 import time
-from svg_animation_mcp import MCP
-from browser_integration import init_browser_environment, clear_svg_animations, execute_js
-from utils import generate_star_points, generate_path_data
-from ai_suggestions import generate_animation_from_text
-from physics_engine import initialize_physics_animation
-from shape_morphing import morph_element
-from animation_settings_ui import create_settings_ui, show_settings_ui
+from src.mcp.svg_animation_mcp import MCP
+from src.mcp.browser_integration import init_browser_environment, clear_svg_animations, execute_js
+from src.mcp.utils import generate_star_points, generate_path_data
+from src.mcp.ai_suggestions import generate_animation_from_text
+from src.mcp.physics_engine import initialize_physics_animation
+from src.mcp.shape_morphing import morph_element
+from src.mcp.animation_settings_ui import create_settings_ui, show_settings_ui
 
 def demo_ai_suggestions():
     """
@@ -411,7 +411,7 @@ def combine_all_features():
             js_code += "parent.appendChild(rect);"
             execute_js(js_code)
             
-            from svg_animation_mcp import Rectangle
+            from src.mcp.svg_animation_mcp import Rectangle
             rect_obj = Rectangle(self.mcp, element_id)
             return rect_obj
             
@@ -433,7 +433,7 @@ def combine_all_features():
             js_code += "parent.appendChild(circle);"
             execute_js(js_code)
             
-            from svg_animation_mcp import Circle
+            from src.mcp.svg_animation_mcp import Circle
             circle_obj = Circle(self.mcp, element_id)
             return circle_obj
     

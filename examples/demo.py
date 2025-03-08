@@ -5,9 +5,9 @@ This script demonstrates the usage of SVG Animation MCP
 by creating various SVG animations.
 """
 
-from svg_animation_mcp import MCP
-from browser_integration import init_browser_environment, clear_svg_animations
-from utils import generate_star_points, generate_polygon_points, generate_path_data
+from src.mcp.svg_animation_mcp import MCP
+from src.mcp.browser_integration import init_browser_environment, clear_svg_animations
+from src.mcp.utils import generate_star_points, generate_polygon_points, generate_path_data
 
 def demo_simple_shapes():
     """

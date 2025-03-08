@@ -3,9 +3,9 @@
 Advanced example of how to use the SVG Animation MCP with more complex animations.
 """
 
-from svg_animation_mcp import MCP
-from browser_integration import init_browser_environment
-import utils
+from src.mcp.svg_animation_mcp import MCP
+from src.mcp.browser_integration import init_browser_environment
+import src.mcp.utils as utils
 import time
 import math
 

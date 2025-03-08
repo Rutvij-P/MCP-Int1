@@ -425,4 +425,31 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Directory Structure
+
+The project is organized as follows:
+
+- `src/mcp/`: Core MCP library files
+  - `svg_animation_mcp.py`: Main MCP implementation
+  - `browser_integration.py`: Browser communication layer
+  - `utils.py`: Utility functions
+  - `animation_*.py`: Animation-related modules
+  - Other specialized modules
+
+- `examples/`: Example usage and demos
+  - `example_usage.py`: Basic usage examples
+  - `demo.py`: Simple demonstration
+  - `advanced_demo.py`: Advanced features demonstration
+  - `advanced_example.py`: More complex examples
+  - `ai_example.py`: AI-powered animation examples
+
+- `tests/`: Test suite
+  - Unit tests for all components
+  - Integration tests
+  - Performance tests
+  - Browser end-to-end tests
+
+- `docs/`: Documentation
+  - `MCP_USAGE_GUIDE.md`: Detailed usage guide 
