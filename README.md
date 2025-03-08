@@ -338,6 +338,61 @@ The `animation_sequence` module provides utilities for creating complex animatio
 from animation_sequence import AnimationSequence, vercel_staggered_fade_in
 ```
 
+## Testing
+
+The SVG Animation MCP includes a comprehensive test suite to ensure it meets production standards. The tests are organized into several categories:
+
+### Unit Tests
+- Tests for core MCP functionality
+- Tests for SVG element creation
+- Tests for animation capabilities
+- Tests for utility functions
+- Tests for browser integration
+
+### Performance Tests
+- Tests for SVG creation performance
+- Tests for animation application performance
+- Tests for memory usage efficiency
+- Tests for complex animation chaining
+
+### Browser End-to-End Tests
+- Tests for SVG rendering in a real browser
+- Tests for animation rendering and execution
+- Tests for animation removal
+
+### Running Tests
+
+We provide a convenient test runner script to execute different test categories:
+
+```bash
+# Run unit tests (default)
+python run_tests.py
+
+# Run all tests (including browser tests)
+python run_tests.py --all
+
+# Run only performance tests
+python run_tests.py --performance
+
+# Run only browser tests
+python run_tests.py --browser
+
+# Run tests with coverage report
+python run_tests.py --coverage
+
+# Run tests with verbose output
+python run_tests.py --verbose
+```
+
+### CI/CD Integration
+
+The test suite is designed to be easily integrated into CI/CD pipelines. Environment variables control which tests are run:
+
+- `BROWSER_TESTS=true`: Enables browser-based tests
+- `FULL_BROWSER_TESTS=true`: Enables comprehensive browser tests
+
+For headless environments, the browser tests automatically use headless mode.
+
 ## Error Handling
 
 The MCP provides several custom exception classes for error handling:
