@@ -1,0 +1,17 @@
+# SVG Animation MCP Dependencies
+
+# Core dependencies
+setuptools>=62.0.0
+wheel>=0.37.1
+
+# Browser integration
+# For integration with BrowserTools MCP (if available)
+# mcp-browsertools>=1.0.0
+
+# Standalone browser automation
+selenium>=4.1.0,<5.0.0
+webdriver-manager>=3.8.0,<4.0.0
+
+# Optional dependencies for testing and development
+pytest>=7.0.0,<8.0.0
+pytest-cov>=4.0.0,<5.0.0 
