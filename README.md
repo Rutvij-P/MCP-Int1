@@ -360,6 +360,25 @@ The SVG Animation MCP includes a comprehensive test suite to ensure it meets pro
 - Tests for animation rendering and execution
 - Tests for animation removal
 
+### Simplified Test Scripts
+
+For quick verification of production readiness, two simplified test scripts are provided:
+
+- **basic_test.py**: Tests basic functionality like module imports and file structure
+- **functional_test.py**: Tests core functionality including SVG creation, shape manipulation, and performance
+
+To run these simplified tests:
+
+```bash
+# Run basic tests
+python3 basic_test.py
+
+# Run functional tests
+python3 functional_test.py
+```
+
+These scripts provide a streamlined way to verify that the codebase is functioning correctly without the complexity of the full test suite.
+
 ### Running Tests
 
 We provide a convenient test runner script to execute different test categories:
