@@ -5,10 +5,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="svg-animation-mcp",
-    version="0.1.0",
-    author="Your Name",
+    version="0.2.0",
+    author="SVG Animation MCP Team",
     author_email="your.email@example.com",
-    description="A Machine Communication Protocol (MCP) for SVG animations",
+    description="A Machine Communication Protocol (MCP) for SVG animations with real-time editing",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/yourusername/svg-animation-mcp",
@@ -21,8 +21,8 @@ setup(
     ],
     python_requires=">=3.6",
     install_requires=[
-        # Optional dependencies for using as a standalone application
-        "selenium>=4.1.0",
-        "webdriver-manager>=3.8.0",
+        "flask>=2.0.0,<3.0.0",
+        "flask-socketio>=5.3.0,<6.0.0",
+        "eventlet>=0.33.0,<1.0.0",
     ],
 ) 

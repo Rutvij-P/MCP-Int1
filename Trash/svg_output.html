@@ -1,0 +1,76 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>SVG Animation MCP - Renderer</title>
+            <style>
+                body { 
+                    margin: 0; 
+                    padding: 20px; 
+                    font-family: Arial, sans-serif;
+                    background-color: #f5f5f5;
+                }
+                .container {
+                    max-width: 1000px;
+                    margin: 0 auto;
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                }
+                h1 {
+                    color: #333;
+                    text-align: center;
+                }
+                #svg-container { 
+                    border: 1px solid #ccc; 
+                    margin: 20px auto; 
+                    background-color: white;
+                    min-height: 500px;
+                    position: relative;
+                    overflow: hidden;
+                }
+                .info-box {
+                    margin-top: 20px;
+                    padding: 10px;
+                    background-color: #e8f4f8;
+                    border-left: 4px solid #4CAF50;
+                    border-radius: 4px;
+                }
+                .log {
+                    margin-top: 20px;
+                    height: 150px;
+                    overflow-y: auto;
+                    background-color: #333;
+                    color: #fff;
+                    padding: 10px;
+                    font-family: monospace;
+                    font-size: 12px;
+                    border-radius: 4px;
+                }
+                svg {
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>SVG Animation MCP - HTML Renderer</h1>
+                
+                <div class="info-box">
+                    <p><strong>Note:</strong> This is a fallback renderer since no browser automation was available. 
+                    The SVG animations are being rendered in this HTML file.</p>
+                </div>
+                
+                <div id="svg-container">
+                    <!-- SVG will be inserted here -->
+                </div>
+                <div class="log" id="log-container">
+                    <!-- LOG-MARKER -->
+                </div>
+            </div>
+        </body>
+        </html>
+        

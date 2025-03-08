@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Animation Editor</title>
+    <!-- Vue.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- Socket.IO CDN -->
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <!-- SVG.js for advanced SVG manipulation -->
+    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.1.2/dist/svg.min.js"></script>
+    <!-- CodeMirror for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
+    
+    <!-- Application CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div id="app">
+        <div class="navbar">
+            <div class="navbar-brand">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L22 8.5v7L12 22 2 15.5v-7L12 2z"></path>
+                    <path d="M12 22v-7"></path>
+                    <path d="M22 8.5l-10 7-10-7"></path>
+                    <path d="M2 15.5l10-7 10 7"></path>
+                    <path d="M12 2v7.5"></path>
+                </svg>
+                SVG Animation Editor
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-danger" v-on:click="resetCanvas">Reset Canvas</button>
+                <button class="btn" v-on:click="exportSVG">Export SVG</button>
+                <button class="btn btn-secondary" v-on:click="copySVGCode">Copy Code</button>
+            </div>
+        </div>
+        
+        <div class="editor-container">
+            <div class="canvas-container">
+                <div id="svg-canvas"></div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="sidebar-section shapes-section">
+                    <h3>Shapes</h3>
+                    <div class="shapes-toolbar">
+                        <div class="shape-tool" v-bind:class="{ active: currentTool === 'select' }" v-on:click="selectTool('select')" title="Select">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 3l7 7m0 0V4m0 6h-6"></path>
+                            </svg>
+                        </div>
+                        <div class="shape-tool" v-bind:class="{ active: currentTool === 'rectangle' }" v-on:click="selectTool('rectangle')" title="Rectangle">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            </svg>
+                        </div>
+                        <div class="shape-tool" v-bind:class="{ active: currentTool === 'circle' }" v-on:click="selectTool('circle')" title="Circle">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                        </div>
+                        <div class="shape-tool" v-bind:class="{ active: currentTool === 'text' }" v-on:click="selectTool('text')" title="Text">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 7V4h16v3M9 20h6M12 4v16"></path>
+                            </svg>
+                        </div>
+                        <div class="shape-tool" v-bind:class="{ active: currentTool === 'path' }" v-on:click="selectTool('path')" title="Path">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 3c0 0 6.5 5 6 12 0.5-7 6-12 6-12"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section properties-section" v-if="selectedElement">
+                    <h3>Properties</h3>
+                    <div class="properties-form">
+                        <template v-if="selectedElement.type === 'rect'">
+                            <label>X</label>
+                            <input type="number" v-model.number="selectedElement.x" v-on:change="updateElement">
+                            <label>Y</label>
+                            <input type="number" v-model.number="selectedElement.y" v-on:change="updateElement">
+                            <label>Width</label>
+                            <input type="number" v-model.number="selectedElement.width" v-on:change="updateElement">
+                            <label>Height</label>
+                            <input type="number" v-model.number="selectedElement.height" v-on:change="updateElement">
+                        </template>
+                        <template v-else-if="selectedElement.type === 'circle'">
+                            <label>Center X</label>
+                            <input type="number" v-model.number="selectedElement.cx" v-on:change="updateElement">
+                            <label>Center Y</label>
+                            <input type="number" v-model.number="selectedElement.cy" v-on:change="updateElement">
+                            <label>Radius</label>
+                            <input type="number" v-model.number="selectedElement.r" v-on:change="updateElement">
+                        </template>
+                        <template v-else-if="selectedElement.type === 'text'">
+                            <label>X</label>
+                            <input type="number" v-model.number="selectedElement.x" v-on:change="updateElement">
+                            <label>Y</label>
+                            <input type="number" v-model.number="selectedElement.y" v-on:change="updateElement">
+                            <label>Text</label>
+                            <input type="text" v-model="selectedElement.text" v-on:change="updateElement">
+                            <label>Font Size</label>
+                            <input type="number" v-model.number="selectedElement['font-size']" v-on:change="updateElement">
+                        </template>
+                        <label>Fill</label>
+                        <input type="color" v-model="selectedElement.fill" v-on:change="updateElement">
+                        <label>Stroke</label>
+                        <input type="color" v-model="selectedElement.stroke" v-on:change="updateElement">
+                        <label>Stroke Width</label>
+                        <input type="number" v-model.number="selectedElement['stroke-width']" v-on:change="updateElement">
+                    </div>
+                </div>
+                
+                <div class="sidebar-section prompt-section">
+                    <h3>Prompt</h3>
+                    <textarea 
+                        class="prompt-text" 
+                        v-model="promptText" 
+                        placeholder="Describe the SVG you want to create or modify..."
+                        v-on:keydown.ctrl.enter="sendPrompt"
+                    ></textarea>
+                    <button class="btn" v-on:click="sendPrompt">Send Prompt</button>
+                    <h3>Prompt History</h3>
+                    <div class="prompt-history">
+                        <div v-for="(prompt, index) in promptHistory" :key="index">
+                            <p><strong v-text="prompt.timestamp"></strong>: <span v-text="prompt.text"></span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section code-section">
+                    <h3>SVG Code</h3>
+                    <div id="code-editor"></div>
+                    <div class="btn-group" style="margin-top: 0.5rem;">
+                        <button class="btn" v-on:click="copySVGCode">Copy Code</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline-container">
+            <div class="timeline">
+                <div class="timeline-track" v-for="animation in animations" :key="animation.id">
+                    <!-- Timeline visualization will be implemented here -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <div v-text="currentStatus"></div>
+            <div>Ready</div>
+        </div>
+        
+        <div class="toast" v-bind:class="{ show: toastVisible }" v-text="toastMessage"></div>
+    </div>
+    
+    <!-- Application JavaScript -->
+    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+src/mcp/svg_animation_mcp.py
